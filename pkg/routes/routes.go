@@ -21,7 +21,7 @@ import (
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
-    "github.com/go-chi/chi/v5/middleware"
+	"github.com/go-chi/chi/v5/middleware"
 )
 
 type UserData struct {
@@ -47,7 +47,7 @@ func handleHelloEndpoint (rw http.ResponseWriter, r *http.Request) {
 		rw.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(rw).Encode(Response{Status: "error found: " + err.Error()})
 	} else {
-		fmt.Println("Received: {\"name\": \"" + userData.Name + "\", \"msg\": \"" + userData.Message + "\"}")
+		fmt.Println(fmt.Sprintf("Received: {\"name\": \"%s\", \"msg\": \"%s\"}\n", userData.Name, userData.Message))
 
 		if userData.Name != "" && userData.Message != "" {
 			fmt.Println("Correct case")

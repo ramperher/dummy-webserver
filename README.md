@@ -4,7 +4,7 @@ Dummy webserver written in Golang, to practice a little bit with the language.
 
 ## Spec
 
-The webserver exposes one endpoint, `/hello`, using [Chi routing framework](https://go-chi.io/#/). This is defined in the [routes](routes) package. Then, the main package, called [webserver](webserver), makes use of it.
+The webserver exposes one endpoint, `/hello`, using [Chi routing framework](https://go-chi.io/#/). This is defined in the [routes](pkg/routes) package. Then, the main executable, called [webserver.go](cmd/webserver.go), makes use of it.
 
 The `/hello` endpoint expects an HTTP request with the following JSON structure:
 
@@ -28,8 +28,7 @@ The endpoint will behave in the following way depending on the received input:
 Launch it with the following command:
 
 ```
-$ cd webserver
-$ go run .
+$ go run cmd/webserver.go
 2024/05/21 17:55:17 Set endpoints on webserver
 2024/05/21 17:55:17 Start webserver
 ```

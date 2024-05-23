@@ -19,7 +19,7 @@ import (
 	"log"
 	"net/http"
 
-	"example.com/routes"
+	"github.com/rampherher/dummy-webserver/pkg/routes"
 )
 
 func main() {
