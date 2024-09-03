@@ -18,6 +18,7 @@ package routes
 import (
 	"encoding/json"
 	"fmt"
+	"log/slog"
 	"net/http"
 
 	"github.com/go-chi/chi/v5"
@@ -35,7 +36,7 @@ type Response struct {
 
 func handleHelloEndpoint (rw http.ResponseWriter, r *http.Request) {
 
-	fmt.Println("Query received in /hello")
+	slog.Info("Query received in /hello")
 	
 	var userData UserData
 	err := json.NewDecoder(r.Body).Decode(&userData)
@@ -43,18 +44,18 @@ func handleHelloEndpoint (rw http.ResponseWriter, r *http.Request) {
 	rw.Header().Set("Content-Type", "application/json")
 
 	if err != nil {
-		fmt.Println("Error in request")
+		slog.Error("Error in request")
 		rw.WriteHeader(http.StatusBadRequest)
 		json.NewEncoder(rw).Encode(Response{Status: "error found: " + err.Error()})
 	} else {
-		fmt.Println(fmt.Sprintf("Received: {\"name\": \"%s\", \"msg\": \"%s\"}\n", userData.Name, userData.Message))
+		slog.Info(fmt.Sprintf("Received: {\"name\": \"%s\", \"msg\": \"%s\"}\n", userData.Name, userData.Message))
 
 		if userData.Name != "" && userData.Message != "" {
-			fmt.Println("Correct case")
+			slog.Info("Correct case")
 			rw.WriteHeader(http.StatusOK)
 			json.NewEncoder(rw).Encode(Response{Status: "correct"})
 		} else {
-			fmt.Println("Not found case")
+			slog.Warn("Not found case")
 			rw.WriteHeader(http.StatusNotFound)
 			json.NewEncoder(rw).Encode(Response{Status: "not found"})
 		}

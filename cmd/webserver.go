@@ -16,7 +16,7 @@ limitations under the License.
 package main
 
 import (
-	"log"
+	"log/slog"
 	"net/http"
 
 	"github.com/rampherher/dummy-webserver/pkg/routes"
@@ -28,10 +28,10 @@ func main() {
 	r := routes.SetChiRouter()
 
 	// Set endpoints beforehand
-	log.Println("Set endpoints on webserver")
+	slog.Info("Set endpoints on webserver")
 	routes.SetEndpoints(r)
 
 	// Then launch the webserver
-	log.Println("Start webserver")
+	slog.Info("Start webserver")
 	http.ListenAndServe(":8080", r)
 }
