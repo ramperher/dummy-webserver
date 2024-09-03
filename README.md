@@ -29,8 +29,8 @@ Launch it with the following command:
 
 ```
 $ go run cmd/webserver.go
-2024/05/21 17:55:17 Set endpoints on webserver
-2024/05/21 17:55:17 Start webserver
+2024/08/28 13:32:50 INFO Set endpoints on webserver
+2024/08/28 13:32:50 INFO Start webserver
 ```
 
 And test it with the following command in a separate terminal:
@@ -49,19 +49,28 @@ $ curl -X GET -d '{"name":"bob","msg":"hi all"}' localhost:8080/hello
 Following logs would be printed in the terminal where the application is running:
 
 ```
-Query received in /hello
-Error in request
-2024/05/21 17:55:32 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:38430 - 400 30B in 71.11µs
-Query received in /hello
-Received: {"name": "", "msg": ""}
-Not found case
-2024/05/21 17:55:39 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:41164 - 404 23B in 66.688µs
-Query received in /hello
-Received: {"name": "", "msg": "hi all"}
-Not found case
-2024/05/21 17:55:46 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:59690 - 404 23B in 43.775µs
-Query received in /hello
-Received: {"name": "bob", "msg": "hi all"}
-Correct case
-2024/05/21 17:55:50 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:59702 - 200 21B in 49.764µs
+2024/08/28 13:33:20 INFO Query received in /hello
+2024/08/28 13:33:20 ERROR Error in request
+2024/08/28 13:33:20 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:60606 - 400 30B in 192.433µs
+2024/08/28 13:33:31 INFO Query received in /hello
+2024/08/28 13:33:31 INFO Received: {"name": "", "msg": ""}
+2024/08/28 13:33:31 WARN Not found case
+2024/08/28 13:33:31 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:47524 - 404 23B in 76.623µs
+2024/08/28 13:33:41 INFO Query received in /hello
+2024/08/28 13:33:41 INFO Received: {"name": "", "msg": "hi all"}
+2024/08/28 13:33:41 WARN Not found case
+2024/08/28 13:33:41 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:43470 - 404 23B in 57.894µs
+2024/08/28 13:33:51 INFO Query received in /hello
+2024/08/28 13:33:51 INFO Received: {"name": "bob", "msg": "hi all"}
+2024/08/28 13:33:51 INFO Correct case
+2024/08/28 13:33:51 "GET http://localhost:8080/hello HTTP/1.1" from [::1]:33564 - 200 21B in 69.777µs
+```
+
+## Testing
+
+Previous tests are also launched using table-driven tests with [webserver_test.go file](cmd/webserver_test.go). Result should be the following:
+
+```
+$ go test cmd/webserver_test.go 
+ok  	command-line-arguments	0.004s
 ```
